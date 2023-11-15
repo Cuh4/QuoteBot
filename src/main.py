@@ -42,9 +42,11 @@ helpers.globals.save("quotes", quotes.quotes())
 helpers.globals.save("startupTimestamp", time.time())
 
 # // Register Events
+# Format Quote Event
 formatQuoteEvent = helpers.events.event("formatQuote").save()
+
 @formatQuoteEvent.attach
-def formatQuote(quote: quotes.definitions.quote):
+async def formatQuote(quote: quotes.definitions.quote):
     # setup embed
     quoteText = helpers.misc.truncateIfTooLong(quote.getText(), config.maxQuoteLength)
     
@@ -54,17 +56,17 @@ def formatQuote(quote: quotes.definitions.quote):
     )
     
     # setup embed footer
-    guild, member, name, avatar_url = client.get_guild(quote.getGuildID()), None, "Anonymous", None # we get the guild because users arent cached, but guilds are
-    
-    if guild is not None:
-        member = guild.get_member(quote.getUserID()) # get the member from the guild if the guild still exists/bot is still in the guild
-    
-    if member is not None:
-        name, avatar_url = f"{member.display_name} (@{member.name})", member.display_avatar.url # save name and avatar url if the member was retrieved
+    user, name, avatar_url = client.get_user(quote.getUserID()), "Anonymous", None # we get the guild because users arent cached, but guilds are
+
+    if user is None:
+        user = await client.fetch_user(quote.getUserID()) # user isn't cached, so let's try fetching the user
+
+    if user is not None:
+        name, avatar_url = f"{user.display_name} (@{user.name})", user.display_avatar.url # get user's name and avatar url
     
     embed.set_footer(
         text = f"- {name}",
-        icon_url = avatar_url if avatar_url is not None else client.user.display_avatar.url
+        icon_url = avatar_url if avatar_url is not None else client.user.display_avatar.url # use user's avatar url if provided, otherwise use the bot's avatar url
     )
     
     # return
