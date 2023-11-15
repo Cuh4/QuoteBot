@@ -8,5 +8,6 @@ def start():
     from .getRandomQuote import command as _
     from .getRandomUserQuote import command as _
     from .quote import command as _
+    from .remove import command as _
     from .restart import command as _
     from .searchQuote import command as _
