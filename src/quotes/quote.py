@@ -88,12 +88,14 @@ class quotes:
     
     def getQuoteByContentSearch(self, query: str, cutoff: float|int = 0.6) -> definitions.quote|None:
         allQuotes = self.getAllQuotes()
-        matches = difflib.get_close_matches(query, allQuotes, n = 3, cutoff = cutoff)
+        
+        quotesDict = {quote.getText() : quote for quote in allQuotes}
+        matches = difflib.get_close_matches(query, quotesDict.keys(), n = 3, cutoff = cutoff)
         
         if len(matches) <= 0:
             return
         
-        return matches[0]
+        return quotesDict.get(matches[0])
         
     def saveQuote(self, user: discord.User, guild: discord.Guild, message: discord.Message, data: dict):
         cursor = self.__getCursor()
