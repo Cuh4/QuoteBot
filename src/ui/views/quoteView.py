@@ -27,10 +27,10 @@ class view(template):
         # // jump to quote button
         # create button
         self.jumpToQuote = discord.ui.Button(
-            style = discord.ButtonStyle.blurple,
             label = "Jump To Quote",
-            url = f"https://discord.com/channels/{quote.getGuildID()}/{quote.getChannelID()}/{quote.getMessageID()}" if messageExists else "", # partial messagable jump_url is incorrect as it misses the channel id or something, hence why we are doing it here manually
-            disabled = not messageExists
+            url = f"https://discord.com/channels/{quote.getGuildID()}/{quote.getChannelID()}/{quote.getMessageID()}" if messageExists else None, # partial messagable jump_url is incorrect as it misses the channel id or something, hence why we are doing it here manually
+            disabled = not messageExists,
+            style = discord.ButtonStyle.red # defaults to link style if url is set, but the url is only set if the message exists, hence why this is red and not a success color like green
         )
         
         # add
@@ -39,7 +39,6 @@ class view(template):
         # // discord invite button
         # create button
         self.inviteButton = discord.ui.Button(
-            style = discord.ButtonStyle.link,
             label = "Support Server",
             url = "https://discord.gg/2HR2awsdSt",
             emoji = "😎"
