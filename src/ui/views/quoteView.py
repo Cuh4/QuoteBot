@@ -24,9 +24,9 @@ class view(template):
         client: discord.Client = helpers.globals.get("client")
         message: discord.PartialMessageable = client.get_partial_messageable(quote.getMessageID(), guild_id = quote.getGuildID())
         
-        # // jump to message button
+        # // jump to quote button
         # create button
-        self.jumpToMessage = discord.ui.Button(
+        self.jumpToQuote = discord.ui.Button(
             style = discord.ButtonStyle.blurple,
             label = "Jump To Quote",
             url = message.jump_url if message else "",
@@ -34,7 +34,7 @@ class view(template):
         )
         
         # add
-        self.add_item(self.jumpToMessage)
+        self.add_item(self.jumpToQuote)
 
         # // discord invite button
         # create button
