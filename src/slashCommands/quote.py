@@ -39,28 +39,33 @@ def command():
         
         # quick check
         if member.bot:
-            checks.fail(f"{discordHelpers.utils.mentionMember()} is a bot.")
+            checks.fail(f"{discordHelpers.utils.mentionMember(member)} is a bot.")
         
         # find message
         message = recentMessageFromUsers.get(member.id, None)
         
         if message is None:
-            checks.fail(f"{discordHelpers.utils.mentionMember()} hasn't sent a message since I was started {discordHelpers.utils.formatTimestamp(startupTime, 'R')}.")
+            checks.fail(f"{discordHelpers.utils.mentionMember(member)} hasn't sent a message since I was started {discordHelpers.utils.formatTimestamp(startupTime, 'R')}.")
             
         # failure message if failed
         failed, failureMessage = checks.result()
         
         if failed:
-            return interaction.response.send_message(
+            return await interaction.response.send_message(
                 embed = discordHelpers.embeds.failure(failureMessage)
             )
             
         # // main
         # save as a quote
-        quotes.saveQuote(member, member.guild, message.content[:6000], {}) # trim the quote to prevent people from somehow saving stuff that is wayyyy over the discord message character limit 
+        quotes.saveQuote(member, member.guild, message.content, {})
         
         # notify
         helpers.prettyprint.success(f"{discordHelpers.utils.formattedName(member)} saved a quote.")
+        
+        # notify
+        return await interaction.response.send_message(
+            embed = discordHelpers.embeds.success(f"Successfully saved {discordHelpers.utils.mentionMember(member)}'s [recent message.]({message.jump_url})")
+        )
 
 # // start command
 command()
