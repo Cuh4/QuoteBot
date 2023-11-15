@@ -37,11 +37,11 @@ def command():
         checks = helpers.misc.failChecks()
         
         # make sure this isnt being used anywhere but in a text channel
-        if interaction.channel.type != discord.ChannelType.text:
+        if interaction.channel.type != discord.ChannelType.text and not discordHelpers.utils.isCreator(client, interaction.user):
             checks.fail("This command must be used in a text channel, not a DM.")
         
         # make sure this user has valid permissions
-        if not discordHelpers.utils.hasPermissions(interaction.user, ["manage_messages"]) and not discordHelpers.utils.isCreator(client, interaction.user):
+        if not discordHelpers.utils.hasPermissions(client, interaction.user, ["manage_messages"]):
             checks.fail("You must have `manage_messages` permissions to use this command.")
             
         # make sure the quote exists
