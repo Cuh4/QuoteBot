@@ -7,6 +7,15 @@ import discord
 
 # // ---- Functions
 # // Permissions/Roles
+def hasPermissions(member: discord.Member, permissions: list[str]):
+    count = 0
+
+    for permission in permissions:
+        if getattr(member.guild_permissions, permission, False):
+            count += 1
+            
+    return count == len(permissions)
+        
 def isCreator(client: discord.Client, user: discord.User):
     return client.application.owner.id == user.id
 
@@ -44,11 +53,11 @@ def stripHighlightMarkdown(msg: str):
 def formattedName(user: discord.User):
     return user.name if user.discriminator == "0" else f"{user.name}#{user.discriminator}" # supports discord's new username system
 
-def mentionMember(user: discord.User):
-    return f"<@{user.id}>"
+def mentionUser(user: discord.User):
+    return user.mention # was previously f"<@{user.id}>". i did not know the mention property existed
 
 def mentionChannel(channel: discord.TextChannel|discord.VoiceChannel|discord.ForumChannel):
-    return f"<#{channel.id}>"
+    return channel.mention # was previously f"<#{channel.id}>". i did not know the mention property existed
 
 def linkUser(user: discord.User):
     return f"https://discord.com/users/{user.id}"
