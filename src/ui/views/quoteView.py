@@ -9,11 +9,11 @@ import ui
 
 # // ---- Main
 # // UI
-class view(ui.modals.template):
+class view(ui.views.template):
     # // Main UI
     def __init__(self):
         # // setup
-        self.setup()
+        super().setup()
 
         # // discord invite button
         # create button
