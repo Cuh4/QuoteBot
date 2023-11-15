@@ -47,7 +47,7 @@ def info(msg: str):
 
 def load(msg: str):
     embed = discord.Embed(
-        description = __setup(config.loadingEmoji, msg), 
+        description = __setup(":timer:", msg), 
         color = discord.Colour.from_rgb(255, 255, 255)
     )
 
