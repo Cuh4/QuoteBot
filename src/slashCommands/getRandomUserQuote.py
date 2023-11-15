@@ -40,11 +40,11 @@ def command():
         
         # check if the mentioned user is a bot
         if member.bot:
-            checks.fail(f"{discordHelpers.utils.mentionMember(member)} is a bot.")
+            checks.fail(f"{discordHelpers.utils.mentionUser(member)} is a bot.")
         
         # check if the mentioned user has quotes
         if userQuotes is None:
-            checks.fail(f"{discordHelpers.utils.mentionMember(member)} hasn't been quoted before. Tell them to get started by using </quote:1174424282772807761>.")
+            checks.fail(f"{discordHelpers.utils.mentionUser(member)} hasn't been quoted before. Tell them to get started by using </quote:1174424282772807761>.")
             
         # failure message if failed
         failed, failureMessage = checks.result()
