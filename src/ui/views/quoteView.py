@@ -15,20 +15,28 @@ from helpers import discord as discordHelpers
 # // UI
 class view(template):
     # // Main UI
-    def __init__(self, quote: quotes.definitions.quote):
+    async def __init__(self, quote: quotes.definitions.quote):
         # // setup
         # setup template
         super().setup()
         
-        # get vars
+        # // get variables
+        # foundation variables
         client: discord.Client = helpers.globals.get("client")
-        messageExists = client.get_partial_messageable(quote.getMessageID(), guild_id = quote.getGuildID()) is not None
+
+        # quote related variables
+        messageExists = False
+        channel = client.get_channel(quote.getChannelID()) or await client.fetch_channel(quote.getChannelID())
+        
+        if channel:
+            message = channel.get_partial_message(quote.getMessageID()) or await channel.fetch_message(quote.getMessageID())
+            messageExists = message is not None
 
         # // jump to quote button
         # create button
         self.jumpToQuote = discord.ui.Button(
             label = "Jump To Quote",
-            url = f"https://discord.com/channels/{quote.getGuildID()}/{quote.getChannelID()}/{quote.getMessageID()}" if messageExists else None, # partial messagable jump_url is incorrect as it misses the channel id or something, hence why we are doing it here manually
+            url = message.jump_url if messageExists else None,
             disabled = not messageExists,
             style = discord.ButtonStyle.red # defaults to link style if url is set, but the url is only set if the message exists, hence why this is red and not a success color like green
         )
