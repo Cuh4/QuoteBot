@@ -57,7 +57,7 @@ def command():
             
         # // main
         # save as a quote
-        quotes.saveQuote(member, member.guild, message.content, {})
+        quotes.saveQuote(member, member.guild, message, {})
         
         # notify
         helpers.prettyprint.info(f"{discordHelpers.utils.formattedName(member)} saved a quote.")
