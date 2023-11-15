@@ -6,10 +6,11 @@
 import discord
 
 import ui
+from ui.views import template
 
 # // ---- Main
 # // UI
-class view(ui.views.template):
+class view(template):
     # // Main UI
     def __init__(self):
         # // setup
