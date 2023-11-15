@@ -15,7 +15,7 @@ from . import definitions
 
 # // ---- Classes
 class quotes:
-    def __init__(self, databaseName: str = "quotes", databasePath: str = "/"):
+    def __init__(self, databaseName: str = "quotes", databasePath: str = ""):
         # create path if doesnt exist
         pathlib.Path(databasePath).mkdir(parents = True, exist_ok = True)
         
@@ -43,7 +43,7 @@ class quotes:
         cursor = self.__getCursor()
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS Quotes (
-            id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+            id INTEGER PRIMARY KEY NOT NULL,
             user_id INTEGER,
             guild_id INTEGER,
             quote TEXT,
@@ -79,7 +79,7 @@ class quotes:
         
     def saveQuote(self, user: discord.User, guild: discord.Guild, quote: str, data: dict):
         cursor = self.__getCursor()
-        cursor.execute("INSERT OR IGNORE INTO Quotes VALUES (?, ?, ?, ?, ?)", [user.id, guild.id, quote, json.dumps(data), time.time()])
+        cursor.execute("INSERT OR IGNORE INTO Quotes (user_id, guild_id, quote, data, timestamp) VALUES (?, ?, ?, ?, ?)", [user.id, guild.id, quote[:5000], json.dumps(data), time.time()])
 
         self.__commit()
 
