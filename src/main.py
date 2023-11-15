@@ -89,4 +89,4 @@ async def on_message(message: discord.Message):
     )
     
 # // Start Bot
-client.run(config.botToken)
+client.run(config.botToken, log_handler = None)
