@@ -55,12 +55,9 @@ async def formatQuote(quote: quotes.definitions.quote):
     quoteTimestampFormatted = discordHelpers.utils.formatTimestamp(quote.getTimestamp(), "R")
     
     # quote author related
-    user = client.get_user(quote.getUserID())
+    user = client.get_user(quote.getUserID()) or await client.fetch_user(quote.getUserID())
     name = "Anonymous"
     avatar_url = client.user.display_avatar.url
-
-    if user is None:
-        user = await client.fetch_user(quote.getUserID()) # user isn't cached, so let's try fetching the user
 
     if user is not None:
         name, avatar_url = f"{user.display_name} (@{user.name})", user.display_avatar.url # get user's name and avatar url
