@@ -41,7 +41,7 @@ async def callback(**data):
     content = message.content
 
     for user in message.mentions:
-        content = content.replace(discordHelpers.utils.mentionMember(user), "")
+        content = content.replace(discordHelpers.utils.mentionUser(user), "")
 
     # // save message
     recentMessageFromUsers[message.author.id] = message
