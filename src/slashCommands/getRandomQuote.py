@@ -38,7 +38,7 @@ def command():
         
         # quick check
         if quote is None:
-            checks.fail("No quotes have been made. Get started by using the (TODO: mention quote slash command)")
+            checks.fail("No quotes have been made. Get started by using </quote:1174424282772807761>.")
             
         # failure message if failed
         failed, failureMessage = checks.result()

@@ -64,7 +64,7 @@ def command():
         
         # notify
         return await interaction.response.send_message(
-            embed = discordHelpers.embeds.success(f"Successfully saved {discordHelpers.utils.mentionMember(member)}'s [recent message.]({message.jump_url})")
+            embed = discordHelpers.embeds.success(f"**Successfully saved {discordHelpers.utils.mentionMember(member)}'s [recent message.]({message.jump_url})**\n**You can view quotes by using </random_quote:1174427347370393670>.**")
         )
 
 # // start command

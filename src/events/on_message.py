@@ -12,7 +12,7 @@ from helpers import general as helpers
 from . import events
 
 # // ---- Main
-# // Chatbot Responses
+# // Message History
 @events.on_message.attach
 async def callback(**data):
     # // get needed vars
@@ -27,6 +27,14 @@ async def callback(**data):
     # ignore messages sent by bots
     if message.author.bot:
         return
+    
+    # send help message if the message mentions the bot
+    if discordHelpers.utils.isMentioned(message.mentions, client.user):
+        return await message.channel.send(
+            embed = discordHelpers.embeds.info("To quote someone's message, use </quote:1174424282772807761>."),
+            reference = message,
+            mention_author = True
+        )
     
     # // filtering
     # remove mentions from message content
