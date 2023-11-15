@@ -15,7 +15,7 @@ from helpers import discord as discordHelpers
 # // UI
 class view(template):
     # // Main UI
-    async def __init__(self, quote: quotes.definitions.quote):
+    def __init__(self, quote: quotes.definitions.quote):
         # // setup
         # setup template
         super().setup()
@@ -26,10 +26,10 @@ class view(template):
 
         # quote related variables
         messageExists = False
-        channel = client.get_channel(quote.getChannelID()) or await client.fetch_channel(quote.getChannelID())
+        channel = client.get_channel(quote.getChannelID())
         
         if channel:
-            message = channel.get_partial_message(quote.getMessageID()) or await channel.fetch_message(quote.getMessageID())
+            message = channel.get_partial_message(quote.getMessageID())
             messageExists = message is not None
 
         # // jump to quote button
