@@ -53,7 +53,7 @@ def command():
         quoteView = ui.views.quote(quote)
 
         response = await interaction.response.send_message(
-            embed = await helpers.events.getSavedEvent("formatQuote").asyncFire(quote),
+            embed = ui.embeds.quote(quote),
             view = quoteView
         )
         
