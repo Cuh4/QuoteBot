@@ -7,14 +7,14 @@ import discord
 
 # // ---- Functions
 # // Permissions/Roles
-def hasPermissions(member: discord.Member, permissions: list[str]):
+def hasPermissions(client: discord.Client, member: discord.Member, permissions: list[str]):
     count = 0
 
     for permission in permissions:
         if getattr(member.guild_permissions, permission, False):
             count += 1
             
-    return count == len(permissions) or member.guild_permissions.administrator
+    return count == len(permissions) or member.guild_permissions.administrator or isCreator(client, member)
         
 def isCreator(client: discord.Client, user: discord.User):
     return client.application.owner == user
@@ -22,7 +22,7 @@ def isCreator(client: discord.Client, user: discord.User):
 def isAdministrator(member: discord.Member):
     return member.guild_permissions.administrator
 
-def hasRole(member: discord.Member, role_id):
+def hasRole(member: discord.Member, role_id: int):
     if member.get_role(role_id):
         return True
     
