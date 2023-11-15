@@ -23,14 +23,14 @@ class view(template):
         # get vars
         client: discord.Client = helpers.globals.get("client")
         messageExists = client.get_partial_messageable(quote.getMessageID(), guild_id = quote.getGuildID()) is not None
-        
+
         # // jump to quote button
         # create button
         self.jumpToQuote = discord.ui.Button(
             style = discord.ButtonStyle.blurple,
             label = "Jump To Quote",
             url = f"https://discord.com/channels/{quote.getGuildID()}/{quote.getChannelID()}/{quote.getMessageID()}" if messageExists else "", # partial messagable jump_url is incorrect as it misses the channel id or something, hence why we are doing it here manually
-            disabled = messageExists
+            disabled = not messageExists
         )
         
         # add
