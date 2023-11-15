@@ -52,7 +52,7 @@ async def formatQuote(quote: quotes.definitions.quote):
     
     embed = discord.Embed(
         description = f"\"**{quoteText}**\"",
-        colour = discord.Color.from_rgb(*[random.randint(200, 255) for i in range(3)])
+        colour = discord.Color.from_rgb(*[random.randint(50, 255) for i in range(3)])
     )
     
     # setup embed footer
