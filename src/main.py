@@ -54,11 +54,13 @@ def formatQuote(quote: quotes.definitions.quote):
     )
     
     # setup embed footer
-    user = client.get_user(quote.getUserID())
-    name, avatar_url = "Anonymous", None
+    guild, member, name, avatar_url = client.get_guild(quote.getGuildID()), None, "Anonymous", None # we get the guild because users arent cached, but guilds are
     
-    if user is not None:
-        name, avatar_url = f"{user.display_name} (@{user.name})", user.display_avatar.url
+    if guild is not None:
+        member = guild.get_member(quote.getUserID()) # get the member from the guild if the guild still exists/bot is still in the guild
+    
+    if member is not None:
+        name, avatar_url = f"{member.display_name} (@{member.name})", member.display_avatar.url # save name and avatar url if the member was retrieved
     
     embed.set_footer(
         text = f"- {name}",
