@@ -2,6 +2,6 @@
 # // ------- [Quote Bot] Helpers Init
 # // ---------------------------------------------------------------------
 
-# // Imports
+# // ---- Imports
 from . import discord
 from . import general

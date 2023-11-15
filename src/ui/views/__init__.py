@@ -2,7 +2,7 @@
 # // ------- [Quote Bot] Views UI Init
 # // ---------------------------------------------------------------------
 
-# // Imports
+# // ---- Imports
 import discord
 
 from .template import view as template
