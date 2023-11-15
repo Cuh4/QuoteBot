@@ -35,7 +35,7 @@ class view(template):
         # // jump to quote button
         # create button
         self.jumpToQuote = discord.ui.Button(
-            label = "Jump To Quote",
+            label = "Jump To Quote" + " [Original Message Removed]" if not messageExists else "",
             url = message.jump_url if messageExists else None,
             disabled = not messageExists,
             style = discord.ButtonStyle.red # defaults to link style if url is set, but the url is only set if the message exists, hence why this is red and not a success color like green
