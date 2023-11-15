@@ -43,4 +43,5 @@ py main.py
 
 ### **Images**
 
-todo
+![Command usage](imgs/commandUsage.png)
+![Failures](imgs/failures.png)
