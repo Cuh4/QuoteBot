@@ -5,10 +5,12 @@
 # // ---- Classes
 # // Quote
 class quote:
-    def __init__(self, id: int, user_id: int, guild_id: int, quote: str, data: dict, timestamp: float):
+    def __init__(self, id: int, user_id: int, guild_id: int, channel_id: int, message_id: int, quote: str, data: dict, timestamp: float):
         self.__id = id
         self.__user_id = user_id
         self.__guild_id = guild_id
+        self.__channel_id = channel_id
+        self.__message_id = message_id
         self.__text = quote
         self.__data = data
         self.__timestamp = timestamp
@@ -21,6 +23,12 @@ class quote:
     
     def getGuildID(self):
         return self.__guild_id
+    
+    def getChannelID(self):
+        return self.__channel_id
+    
+    def getMessageID(self):
+        return self.__message_id
 
     def getText(self):
         return self.__text

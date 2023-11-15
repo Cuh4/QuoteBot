@@ -9,6 +9,7 @@ import json
 import sqlite3
 import discord
 import pathlib
+import difflib
 
 from . import helpers
 from . import definitions
@@ -36,7 +37,7 @@ class quotes:
         return self.database.commit()
     
     def __quoteDataToQuote(self, data: list):
-        return definitions.quote(data[0], data[1], data[2], data[3], json.loads(data[4]), data[5])
+        return definitions.quote(data[0], data[1], data[2], data[3], data[4], data[5], json.loads(data[6]), data[7])
 
     # // methods
     def createDatabaseSchema(self):
@@ -46,6 +47,8 @@ class quotes:
             id INTEGER PRIMARY KEY NOT NULL,
             user_id INTEGER,
             guild_id INTEGER,
+            channel_id INTEGER,
+            message_id INTEGER,
             quote TEXT,
             data TEXT,
             timestamp REAL
@@ -76,10 +79,25 @@ class quotes:
         data = cursor.execute("SELECT * FROM Quotes WHERE id = ?", [id]).fetchone()
         
         return self.__quoteDataToQuote(data) if data is not None else None
-        
-    def saveQuote(self, user: discord.User, guild: discord.Guild, quote: str, data: dict):
+    
+    def getAllQuotes(self):
         cursor = self.__getCursor()
-        cursor.execute("INSERT OR IGNORE INTO Quotes (user_id, guild_id, quote, data, timestamp) VALUES (?, ?, ?, ?, ?)", [user.id, guild.id, quote[:5000], json.dumps(data), time.time()])
+        allData = cursor.execute("SELECT * FROM Quotes", [id]).fetchall()
+        
+        return [self.__quoteDataToQuote(data) for data in allData]
+    
+    def getQuoteByContentSearch(self, query: str, cutoff: float|int = 0.6) -> str|None:
+        allQuotes = self.getAllQuotes()
+        matches = difflib.get_close_matches(query, allQuotes, n = 3, cutoff = cutoff)
+        
+        if len(matches) <= 0:
+            return
+        
+        return matches[0]
+        
+    def saveQuote(self, user: discord.User, guild: discord.Guild, message: discord.Message, data: dict):
+        cursor = self.__getCursor()
+        cursor.execute("INSERT OR IGNORE INTO Quotes (user_id, guild_id, channel_id, message_id, quote, data, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)", [user.id, guild.id, message.channel.id, message.id, message.content[:5000], json.dumps(data), time.time()])
 
         self.__commit()
 
