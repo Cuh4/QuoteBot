@@ -12,7 +12,7 @@ import pathlib
 import difflib
 
 from . import helpers
-from . import definitions
+from . import classes
 
 # // ---- Classes
 class quotes:
@@ -37,7 +37,7 @@ class quotes:
         return self.database.commit()
     
     def __quoteDataToQuote(self, data: list):
-        return definitions.quote(self, data[0], data[1], data[2], data[3], data[4], data[5], json.loads(data[6]), data[7])
+        return classes.quote(self, data[0], data[1], data[2], data[3], data[4], data[5], json.loads(data[6]), data[7])
 
     # // methods
     def createDatabaseSchema(self):
@@ -86,7 +86,7 @@ class quotes:
         
         return [self.__quoteDataToQuote(data) for data in allData]
     
-    def getQuoteByContentSearch(self, query: str, cutoff: float|int = 0.6) -> definitions.quote|None:
+    def getQuoteByContentSearch(self, query: str, cutoff: float|int = 0.6) -> classes.quote|None:
         allQuotes = self.getAllQuotes()
         
         quotesDict = {quote.getText() : quote for quote in allQuotes}

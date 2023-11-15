@@ -46,7 +46,7 @@ helpers.globals.save("startupTimestamp", time.time())
 formatQuoteEvent = helpers.events.event("formatQuote").save()
 
 @formatQuoteEvent.attach
-async def formatQuote(quote: quotes.definitions.quote):
+async def formatQuote(quote: quotes.classes.quote):
     # // setup variables
     # quote related
     quoteText = helpers.misc.truncateIfTooLong(quote.getText(), config.maxQuoteLength) # enforce character limit

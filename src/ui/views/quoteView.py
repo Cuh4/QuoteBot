@@ -15,7 +15,7 @@ from helpers import discord as discordHelpers
 # // UI
 class view(template):
     # // Main UI
-    def __init__(self, quote: quotes.definitions.quote):
+    def __init__(self, quote: quotes.classes.quote):
         # // setup
         # setup template
         super().setup()

@@ -5,4 +5,4 @@
 # // ---- Imports
 from .quote import quotes
 from . import helpers
-from . import definitions
+from . import classes
