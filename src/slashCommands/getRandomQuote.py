@@ -44,7 +44,7 @@ def command():
         failed, failureMessage = checks.result()
         
         if failed:
-            return interaction.response.send_message(
+            return await interaction.response.send_message(
                 embed = discordHelpers.embeds.failure(failureMessage)
             )
             
@@ -52,7 +52,7 @@ def command():
         # reply with quote
         quoteView = ui.views.quote()
 
-        response = interaction.response.send_message(
+        response = await interaction.response.send_message(
             embed = helpers.events.getSavedEvent("formatQuote").fire(quote),
             view = quoteView
         )
