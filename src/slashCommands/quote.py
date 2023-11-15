@@ -60,7 +60,7 @@ def command():
         quotes.saveQuote(member, member.guild, message.content, {})
         
         # notify
-        helpers.prettyprint.success(f"{discordHelpers.utils.formattedName(member)} saved a quote.")
+        helpers.prettyprint.info(f"{discordHelpers.utils.formattedName(member)} saved a quote.")
         
         # notify
         return await interaction.response.send_message(
