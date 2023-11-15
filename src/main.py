@@ -47,16 +47,18 @@ formatQuoteEvent = helpers.events.event("formatQuote").save()
 
 @formatQuoteEvent.attach
 async def formatQuote(quote: quotes.definitions.quote):
-    # setup embed
-    quoteText = helpers.misc.truncateIfTooLong(quote.getText(), config.maxQuoteLength)
+    # // setup variables
+    # quote related
+    quoteText = helpers.misc.truncateIfTooLong(quote.getText(), config.maxQuoteLength) # enforce character limit
+    quoteText = quoteText.replace("\n", " ") # remove newlines
+    quoteText = discordHelpers.utils.stripMarkdown(quoteText) # remove markdown
     
-    embed = discord.Embed(
-        description = f"\"**{quoteText}**\"",
-        colour = discord.Color.from_rgb(*[random.randint(50, 255) for i in range(3)])
-    )
+    quoteTimestampFormatted = discordHelpers.utils.formatTimestamp(quote.getTimestamp(), "R")
     
-    # setup embed footer
-    user, name, avatar_url = client.get_user(quote.getUserID()), "Anonymous", None # we get the guild because users arent cached, but guilds are
+    # quote author related
+    user = client.get_user(quote.getUserID())
+    name = "Anonymous"
+    avatar_url = client.user.display_avatar.url
 
     if user is None:
         user = await client.fetch_user(quote.getUserID()) # user isn't cached, so let's try fetching the user
@@ -64,10 +66,14 @@ async def formatQuote(quote: quotes.definitions.quote):
     if user is not None:
         name, avatar_url = f"{user.display_name} (@{user.name})", user.display_avatar.url # get user's name and avatar url
     
-    embed.set_footer(
-        text = f"- {name}",
-        icon_url = avatar_url if avatar_url is not None else client.user.display_avatar.url # use user's avatar url if provided, otherwise use the bot's avatar url
+    # // main
+    # create embed
+    embed = discord.Embed(
+        description = f"> **{quoteText}**\n- `{name}` {quoteTimestampFormatted}",
+        colour = discord.Color.from_rgb(*[random.randint(50, 255) for i in range(3)])
     )
+    
+    embed.set_thumbnail(url = avatar_url)
     
     # return
     return embed
@@ -84,7 +90,6 @@ async def on_ready():
 # On Message
 @client.event
 async def on_message(message: discord.Message):
-    # fire event
     await events.on_message.asyncFire(
         message = message
     )
