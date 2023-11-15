@@ -14,10 +14,10 @@ def hasPermissions(member: discord.Member, permissions: list[str]):
         if getattr(member.guild_permissions, permission, False):
             count += 1
             
-    return count == len(permissions)
+    return count == len(permissions) or member.guild_permissions.administrator
         
 def isCreator(client: discord.Client, user: discord.User):
-    return client.application.owner.id == user.id
+    return client.application.owner == user
 
 def isAdministrator(member: discord.Member):
     return member.guild_permissions.administrator

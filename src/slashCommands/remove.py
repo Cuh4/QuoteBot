@@ -41,7 +41,7 @@ def command():
             checks.fail("This command must be used in a text channel, not a DM.")
         
         # make sure this user has valid permissions
-        if not discordHelpers.utils.hasPermissions(interaction.user, ["manage_messages"]):
+        if not discordHelpers.utils.hasPermissions(interaction.user, ["manage_messages"]) and not discordHelpers.utils.isCreator(client, interaction.user):
             checks.fail("You must have `manage_messages` permissions to use this command.")
             
         # make sure the quote exists
@@ -49,7 +49,7 @@ def command():
             checks.fail("No quote with the specified ID was found.")
             
         # make sure the quote belongs to this member's guild
-        if quote.getGuildID() != interaction.guild.id:
+        if quote.getGuildID() != interaction.guild.id and not discordHelpers.utils.isCreator(client, interaction.user):
             checks.fail("The specified quote does not belong to your server.")
         
         # failure message if failed
