@@ -72,7 +72,7 @@ async def formatQuote(quote: quotes.definitions.quote):
         colour = discord.Color.from_rgb(*[random.randint(50, 255) for i in range(3)])
     )
     
-    embed.set_author(name = name, icon_url = avatar_url)
+    embed.set_author(name = name, url = discordHelpers.utils.linkUser(user) if user else "", icon_url = avatar_url)
     
     # return
     return embed

@@ -50,6 +50,9 @@ def mentionMember(user: discord.User):
 def mentionChannel(channel: discord.TextChannel|discord.VoiceChannel|discord.ForumChannel):
     return f"<#{channel.id}>"
 
+def linkUser(user: discord.User):
+    return f"https://discord.com/users/{user.id}"
+
 # // Other
 def isMentioned(mentionedUsers: list[discord.User], who: discord.User):
     for i in mentionedUsers:
