@@ -82,11 +82,11 @@ class quotes:
     
     def getAllQuotes(self):
         cursor = self.__getCursor()
-        allData = cursor.execute("SELECT * FROM Quotes", [id]).fetchall()
+        allData = cursor.execute("SELECT * FROM Quotes").fetchall()
         
         return [self.__quoteDataToQuote(data) for data in allData]
     
-    def getQuoteByContentSearch(self, query: str, cutoff: float|int = 0.6) -> str|None:
+    def getQuoteByContentSearch(self, query: str, cutoff: float|int = 0.6) -> definitions.quote|None:
         allQuotes = self.getAllQuotes()
         matches = difflib.get_close_matches(query, allQuotes, n = 3, cutoff = cutoff)
         
