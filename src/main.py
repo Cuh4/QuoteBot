@@ -68,6 +68,7 @@ async def formatQuote(quote: quotes.definitions.quote):
     )
     
     embed.set_author(name = name, url = discordHelpers.utils.linkUser(user) if user else "", icon_url = avatar_url)
+    embed.set_footer(text = f"Quote ID: {quote.getID()} | Channel ID: {quote.getChannelID()}")
     
     # return
     return embed
