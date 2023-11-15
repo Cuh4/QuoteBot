@@ -51,9 +51,7 @@ async def formatQuote(quote: quotes.definitions.quote):
     # quote related
     quoteText = helpers.misc.truncateIfTooLong(quote.getText(), config.maxQuoteLength) # enforce character limit
     quoteText = discordHelpers.utils.stripMarkdown(quoteText) # remove markdown
-    
-    quoteTimestampFormatted = discordHelpers.utils.formatTimestamp(quote.getTimestamp(), "R")
-    
+
     # quote author related
     user = client.get_user(quote.getUserID()) or await client.fetch_user(quote.getUserID())
     name = "Anonymous"
