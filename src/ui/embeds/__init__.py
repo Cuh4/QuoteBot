@@ -1,8 +1,6 @@
 # // ---------------------------------------------------------------------
-# // ------- [Quote Bot] UI Init
+# // ------- [Quote Bot] Embeds UI Init
 # // ---------------------------------------------------------------------
 
 # // Imports
-from . import modals
-from . import views
-from . import embeds
+from .quote import embed as quote

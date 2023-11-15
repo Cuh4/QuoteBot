@@ -41,38 +41,6 @@ helpers.globals.save("recentMessageFromUsers", {})
 helpers.globals.save("quotes", quotes.quotes())
 helpers.globals.save("startupTimestamp", time.time())
 
-# // Register Events
-# Format Quote Event
-formatQuoteEvent = helpers.events.event("formatQuote").save()
-
-@formatQuoteEvent.attach
-async def formatQuote(quote: quotes.classes.quote):
-    # // setup variables
-    # quote related
-    quoteText = helpers.misc.truncateIfTooLong(quote.getText(), config.maxQuoteLength) # enforce character limit
-    quoteText = discordHelpers.utils.stripMarkdown(quoteText) # remove markdown
-
-    # quote author related
-    user = client.get_user(quote.getUserID()) or await client.fetch_user(quote.getUserID())
-    name = "Anonymous"
-    avatar_url = client.user.display_avatar.url
-
-    if user is not None:
-        name, avatar_url = f"{user.display_name} (@{user.name})", user.display_avatar.url # get user's name and avatar url
-    
-    # // main
-    # create embed
-    embed = discord.Embed(
-        description = f">>> **{quoteText}**",
-        colour = discord.Color.from_rgb(*[random.randint(50, 255) for i in range(3)])
-    )
-    
-    embed.set_author(name = name, url = discordHelpers.utils.linkUser(user) if user else "", icon_url = avatar_url)
-    embed.set_footer(text = f"Quote ID: {quote.getID()} | Channel ID: {quote.getChannelID()}")
-    
-    # return
-    return embed
-
 # // Register Commands
 slashCommands.start()
 
