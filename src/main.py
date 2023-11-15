@@ -50,7 +50,6 @@ async def formatQuote(quote: quotes.definitions.quote):
     # // setup variables
     # quote related
     quoteText = helpers.misc.truncateIfTooLong(quote.getText(), config.maxQuoteLength) # enforce character limit
-    quoteText = quoteText.replace("\n", " ") # remove newlines
     quoteText = discordHelpers.utils.stripMarkdown(quoteText) # remove markdown
     
     quoteTimestampFormatted = discordHelpers.utils.formatTimestamp(quote.getTimestamp(), "R")
@@ -69,11 +68,11 @@ async def formatQuote(quote: quotes.definitions.quote):
     # // main
     # create embed
     embed = discord.Embed(
-        description = f"> **{quoteText}**\n- `{name}` {quoteTimestampFormatted}",
+        description = f">>> **{quoteText}**",
         colour = discord.Color.from_rgb(*[random.randint(50, 255) for i in range(3)])
     )
     
-    embed.set_thumbnail(url = avatar_url)
+    embed.set_author(name = name, icon_url = avatar_url)
     
     # return
     return embed
