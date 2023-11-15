@@ -5,7 +5,6 @@
 # // ---- Imports
 import discord
 
-import config
 import quotes as _quotes
 from helpers import general as helpers
 from helpers import discord as discordHelpers
@@ -39,13 +38,13 @@ def command():
         
         # quick check
         if member.bot:
-            checks.fail(f"{discordHelpers.utils.mentionMember(member)} is a bot.")
+            checks.fail(f"{discordHelpers.utils.mentionUser(member)} is a bot.")
         
         # find message
         message = recentMessageFromUsers.get(member.id, None)
         
         if message is None:
-            checks.fail(f"{discordHelpers.utils.mentionMember(member)} hasn't sent a message since I was started {discordHelpers.utils.formatTimestamp(startupTime, 'R')}.")
+            checks.fail(f"{discordHelpers.utils.mentionUser(member)} hasn't sent a message since I was started {discordHelpers.utils.formatTimestamp(startupTime, 'R')}.")
             
         # failure message if failed
         failed, failureMessage = checks.result()
@@ -64,7 +63,7 @@ def command():
         
         # notify
         return await interaction.response.send_message(
-            embed = discordHelpers.embeds.success(f"**Successfully saved {discordHelpers.utils.mentionMember(member)}'s [recent message.]({message.jump_url})**\n**You can view quotes by using </random_quote:1174427347370393670>.**")
+            embed = discordHelpers.embeds.success(f"**Successfully saved {discordHelpers.utils.mentionUser(member)}'s [recent message.]({message.jump_url})**\n**You can view quotes by using </random_quote:1174427347370393670>.**")
         )
 
 # // start command
