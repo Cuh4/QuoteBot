@@ -37,7 +37,7 @@ async def embed(quote: quotes.classes.quote):
         color = discord.Color.from_rgb(*[random.randint(50, 255) for i in range(3)])
     )
     
-    self.set_author(name = name, url = discordHelpers.utils.linkUser(user) if user else "", icon_url = avatar_url)
-    self.set_footer(text = f"Quote ID: {quote.getID()} | Channel ID: {quote.getChannelID()}")
+    embed.set_author(name = name, url = discordHelpers.utils.linkUser(user) if user else "", icon_url = avatar_url)
+    embed.set_footer(text = f"Quote ID: {quote.getID()} | Channel ID: {quote.getChannelID()}")
     
     return embed
