@@ -3,6 +3,6 @@
 # // ---------------------------------------------------------------------
 
 # // ---- Imports
-from .quote import quotes
+from .main import quotes
 from . import helpers
 from . import classes
