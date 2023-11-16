@@ -32,17 +32,23 @@ def command():
     )
     @discord.app_commands.describe(member = "The member to quote.")
     async def command(interaction: discord.Interaction, member: discord.Member):
+        # // vars
+        # get recent message
+        message = recentMessageFromUsers.get(member.id, None)
+        
         # // checks
         # setup
         checks = helpers.misc.failChecks()
         
-        # quick check
+        # check channel type
+        if interaction.channel.type != discord.ChannelType.text:
+            checks.fail("This command can only be used in a text channel.")
+        
+        # check if bot
         if member.bot:
             checks.fail(f"{discordHelpers.utils.mentionUser(member)} is a bot.")
         
-        # find message
-        message = recentMessageFromUsers.get(member.id, None)
-        
+        # check if message exists
         if message is None:
             checks.fail(f"{discordHelpers.utils.mentionUser(member)} hasn't sent a message since I was started {discordHelpers.utils.formatTimestamp(startupTime, 'R')}.")
             
