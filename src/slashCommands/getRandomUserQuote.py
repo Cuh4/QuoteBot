@@ -62,7 +62,7 @@ def command():
         quoteView = ui.views.quote(chosenQuote)
 
         response = await interaction.response.send_message(
-            embed = ui.embeds.quote(chosenQuote),
+            embed = await ui.embeds.quote(chosenQuote),
             view = quoteView
         )
         
