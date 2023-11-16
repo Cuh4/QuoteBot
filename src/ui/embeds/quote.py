@@ -40,6 +40,3 @@ class embed(discord.Embed):
         
         self.set_author(name = name, url = discordHelpers.utils.linkUser(user) if user else "", icon_url = avatar_url)
         self.set_footer(text = f"Quote ID: {quote.getID()} | Channel ID: {quote.getChannelID()}")
-        
-        # return
-        return embed
