@@ -2,13 +2,10 @@
 # // ------- [Quote Bot] Quotes Classes
 # // ---------------------------------------------------------------------
 
-# // Imports
-from .quote import quotes
-
 # // ---- Classes
 # // Quote
 class quote:
-    def __init__(self, parent: quotes, id: int, user_id: int, guild_id: int, channel_id: int, message_id: int, quote: str, data: dict, timestamp: float):
+    def __init__(self, parent, id: int, user_id: int, guild_id: int, channel_id: int, message_id: int, quote: str, data: dict, timestamp: float):
         self.__parent = parent
         self.__id = id
         self.__user_id = user_id
