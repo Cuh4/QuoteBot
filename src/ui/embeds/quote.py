@@ -28,7 +28,7 @@ async def embed(quote: quotes.classes.quote):
     avatar_url = client.user.display_avatar.url
 
     if user is not None:
-        name, avatar_url = f"{user.display_name} (@{user.name})", user.display_avatar.url # get user's name and avatar url
+        name, avatar_url = f"@{user.display_name}", user.display_avatar.url # get user's name and avatar url
     
     # // main
     # create embed
