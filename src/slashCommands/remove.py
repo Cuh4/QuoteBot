@@ -65,7 +65,7 @@ def command():
         quote.remove()
         
         # reply
-        interaction.response.send_message(
+        await interaction.response.send_message(
             embed = discordHelpers.embeds.success(f"Successfully removed quote #{quote.getID()}.")
         )
         
