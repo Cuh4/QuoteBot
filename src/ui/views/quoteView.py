@@ -77,7 +77,7 @@ class view(template):
         # get report channel
         reportChannel = self.client.get_channel(config.reportChannelID) or await self.client.fetch_channel(config.reportChannelID)
         
-        if not reportChannel:
+        if reportChannel is None:
             return await interaction.response.send_message(
                 embed = discordHelpers.embeds.failure("Sorry, but your report failed to send. Please try again later."),
                 ephemeral = True
