@@ -85,7 +85,7 @@ class view(template):
             
         # format report details
         content = "\n".join([
-            "**Quote User ID**",
+            "**Quote Creator ID**",
             f"`{self.quote.getUserID()}`\n",
             "**Quote ID**",
             f"`{self.quote.getID()}`\n",
