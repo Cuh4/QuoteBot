@@ -84,7 +84,7 @@ class view(template):
             )
             
         # format report details
-        content = "\n".join([
+        content = "\n\n".join([
             "**Quote User ID**",
             f"`{self.quote.getUserID()}`",
             "**Quote ID**",
@@ -92,14 +92,14 @@ class view(template):
             "**Quote Content**",
             f"```{discordHelpers.utils.stripHighlightMarkdown(self.quote.getText())}```",
             "**Quote Creation Time**",
-            f"`{discordHelpers.utils.formatTimestamp(self.quote.getTimestamp())}"
+            f"{discordHelpers.utils.formatTimestamp(self.quote.getTimestamp())}"
         ])
         
         
         # send report
         await reportChannel.send(
             embed = discordHelpers.embeds.info(
-                f"**A quote was reported by @{interaction.user.name} `({interaction.user.id})`.**\n{content}"
+                f"**A quote was reported by @{interaction.user.name} `({interaction.user.id})`.**\n---\n{content}"
             )
         )
         
