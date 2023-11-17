@@ -53,7 +53,7 @@ def command():
             checks.fail(f"{discordHelpers.utils.mentionUser(member)} hasn't sent a message since I was started {discordHelpers.utils.formatTimestamp(startupTime, 'R')}.")
             
         # check if message is empty
-        if message.content == "":
+        if message is not None and message.content == "":
             checks.fail(f"{discordHelpers.utils.mentionUser(member)}'s message is empty.")
             
         # failure message if failed
