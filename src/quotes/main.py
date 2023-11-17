@@ -37,7 +37,7 @@ class quotes:
         return self.database.commit()
     
     def __quoteDataToQuote(self, data: list):
-        return classes.quote(self, data[0], data[1], data[2], data[3], data[4], data[5], json.loads(data[6]), data[7])
+        return classes.quote(self, data[0], data[1], data[2], data[3], data[4], data[5], data[6], json.loads(data[7]), data[8])
 
     # // methods
     def createDatabaseSchema(self):
@@ -45,6 +45,7 @@ class quotes:
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS Quotes (
             id INTEGER PRIMARY KEY NOT NULL,
+            creator_user_id INTEGER,
             user_id INTEGER,
             guild_id INTEGER,
             channel_id INTEGER,
@@ -97,9 +98,9 @@ class quotes:
         
         return quotesDict.get(matches[0])
         
-    def saveQuote(self, user: discord.User, guild: discord.Guild, message: discord.Message, data: dict):
+    def saveQuote(self, creator: discord.User, user: discord.User, guild: discord.Guild, message: discord.Message, data: dict):
         cursor = self.__getCursor()
-        cursor.execute("INSERT OR IGNORE INTO Quotes (user_id, guild_id, channel_id, message_id, quote, data, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)", [user.id, guild.id, message.channel.id, message.id, message.content[:5000], json.dumps(data), time.time()])
+        cursor.execute("INSERT OR IGNORE INTO Quotes (creator_user_id, user_id, guild_id, channel_id, message_id, quote, data, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)", [creator.id, user.id, guild.id, message.channel.id, message.id, message.content[:5000], json.dumps(data), time.time()])
 
         self.__commit()
 

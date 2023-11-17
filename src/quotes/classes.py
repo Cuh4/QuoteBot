@@ -5,9 +5,10 @@
 # // ---- Classes
 # // Quote
 class quote:
-    def __init__(self, parent, id: int, user_id: int, guild_id: int, channel_id: int, message_id: int, quote: str, data: dict, timestamp: float):
+    def __init__(self, parent, id: int, creator_user_id:int, user_id: int, guild_id: int, channel_id: int, message_id: int, quote: str, data: dict, timestamp: float):
         self.__parent = parent
         self.__id = id
+        self.__creator_user_id = creator_user_id
         self.__user_id = user_id
         self.__guild_id = guild_id
         self.__channel_id = channel_id
@@ -21,6 +22,9 @@ class quote:
         
     def getID(self):
         return self.__id
+        
+    def getCreatorUserID(self):
+        return self.__creator_user_id
         
     def getUserID(self):
         return self.__user_id
