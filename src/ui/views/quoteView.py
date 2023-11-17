@@ -39,7 +39,8 @@ class view(template):
         # create button
         self.reportButton = discord.ui.Button(
             label = "Report Quote",
-            style = discord.ButtonStyle.danger
+            style = discord.ButtonStyle.danger,
+            emoji = "🤬"
         )
         
         # button callback
