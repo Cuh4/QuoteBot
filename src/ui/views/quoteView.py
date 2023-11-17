@@ -86,13 +86,13 @@ class view(template):
         # format report details
         content = "\n".join([
             "**Quote User ID**",
-            f"`{self.quote.getUserID()}`"
+            f"`{self.quote.getUserID()}`",
             "**Quote ID**",
             f"`{self.quote.getID()}`",
             "**Quote Content**",
-            f"```{discordHelpers.utils.stripHighlightMarkdown(self.quote.getText())}```"
+            f"```{discordHelpers.utils.stripHighlightMarkdown(self.quote.getText())}```",
             "**Quote Creation Time**",
-            f"`{discordHelpers.utils.formatTimestamp(self.quote.getTimestamp())}",
+            f"`{discordHelpers.utils.formatTimestamp(self.quote.getTimestamp())}"
         ])
         
         
