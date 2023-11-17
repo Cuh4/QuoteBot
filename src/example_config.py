@@ -6,6 +6,9 @@
 botToken = "" # token of your discord bot. create a bot here: https://discord.com/developers/applications'. be sure to enable message content intents
 activityText = "you." # in discord, this becomes: "Watching you."
 
+# // functionality
+reportChannelID = 1 # id of the channel that quote reports will be sent to
+
 # // character limits
 maxQuoteLength = 500 # character limit of quotes. if a quote exceeds this, then it gets trimmed down
 

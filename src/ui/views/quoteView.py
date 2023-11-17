@@ -7,6 +7,7 @@ import discord
 
 import ui
 import quotes
+import config
 from ui.views import template
 from helpers import general as helpers
 from helpers import discord as discordHelpers
@@ -22,15 +23,30 @@ class view(template):
         
         # // get variables
         # foundation variables
-        client: discord.Client = helpers.globals.get("client")
+        self.client: discord.Client = helpers.globals.get("client")
 
         # quote related variables
+        self.quote = quote
+        
         messageExists = False
-        channel = client.get_channel(quote.getChannelID())
+        channel = self.client.get_channel(quote.getChannelID())
         
         if channel:
             message = channel.get_partial_message(quote.getMessageID())
             messageExists = message is not None
+            
+        # // report button
+        # create button
+        self.reportButton = discord.ui.Button(
+            label = "Report Quote",
+            style = discord.ButtonStyle.danger
+        )
+        
+        # button callback
+        self.reportButton.callback = self.reportButtonCallback
+        
+        # add
+        self.add_item(self.reportButton)
 
         # // jump to quote button
         # create button
@@ -54,3 +70,40 @@ class view(template):
         
         # add
         self.add_item(self.inviteButton)
+
+    # // Button Callbacks
+    async def reportButtonCallback(self, interaction: discord.Interaction):
+        # get report channel
+        reportChannel = self.client.get_channel(config.reportChannelID) or await self.client.fetch_channel(config.reportChannelID)
+        
+        if not reportChannel:
+            return await interaction.response.send_message(
+                embed = discordHelpers.embeds.failure("Sorry, but your report failed to send. Please try again later."),
+                ephemeral = True
+            )
+            
+        # format report details
+        content = "\n".join([
+            "**Quote User ID**",
+            f"`{self.quote.getUserID()}`"
+            "**Quote ID**",
+            f"`{self.quote.getID()}`",
+            "**Quote Content**",
+            f"```{discordHelpers.utils.stripHighlightMarkdown(self.quote.getText())}```"
+            "**Quote Creation Time**",
+            f"`{discordHelpers.utils.formatTimestamp(self.quote.getTimestamp())}",
+        ])
+        
+        
+        # send report
+        reportChannel.send(
+            embed = discordHelpers.embeds.info(
+                f"**A quote was reported by @{interaction.user.name} `({interaction.user.id})`.**\n{content}"
+            )
+        )
+        
+        # send success message
+        await interaction.response.send_message(
+            embed = discordHelpers.embeds.success("This quote has been successfully reported."),
+            ephemeral = True
+        )

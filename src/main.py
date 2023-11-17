@@ -35,11 +35,14 @@ tree = discord.app_commands.CommandTree(client)
 
 # // ---- Main
 # // Register Globals
+# bot
 helpers.globals.save("client", client)
 helpers.globals.save("commandTree", tree)
+helpers.globals.save("startupTimestamp", time.time())
+
+# quotes
 helpers.globals.save("recentMessageFromUsers", {})
 helpers.globals.save("quotes", quotes.quotes())
-helpers.globals.save("startupTimestamp", time.time())
 
 # // Register Commands
 slashCommands.start()
