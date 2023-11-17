@@ -100,7 +100,7 @@ class quotes:
         
     def saveQuote(self, creator: discord.User, user: discord.User, guild: discord.Guild, message: discord.Message, data: dict):
         cursor = self.__getCursor()
-        cursor.execute("INSERT OR IGNORE INTO Quotes (creator_user_id, user_id, guild_id, channel_id, message_id, quote, data, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)", [creator.id, user.id, guild.id, message.channel.id, message.id, message.content[:5000], json.dumps(data), time.time()])
+        cursor.execute("INSERT OR IGNORE INTO Quotes (creator_user_id, user_id, guild_id, channel_id, message_id, quote, data, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [creator.id, user.id, guild.id, message.channel.id, message.id, message.content[:5000], json.dumps(data), time.time()])
 
         self.__commit()
 
