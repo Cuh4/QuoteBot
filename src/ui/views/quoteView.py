@@ -97,7 +97,7 @@ class view(template):
         
         
         # send report
-        reportChannel.send(
+        await reportChannel.send(
             embed = discordHelpers.embeds.info(
                 f"**A quote was reported by @{interaction.user.name} `({interaction.user.id})`.**\n{content}"
             )
