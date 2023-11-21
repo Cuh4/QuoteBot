@@ -10,5 +10,5 @@ import config
 # // ---- Main
 # // UI
 class modal(discord.ui.Modal):
-    def setup(self):
-        super().__init__(timeout = config.uiModalTimeout)
+    def setup(self, title: str):
+        super().__init__(title = title, timeout = config.uiModalTimeout)
