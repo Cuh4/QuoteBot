@@ -43,7 +43,7 @@ def command():
             checks.fail(f"{discordHelpers.utils.mentionUser(member)} is a bot.")
         
         # check if the mentioned user has quotes
-        if userQuotes is None:
+        if len(userQuotes) <= 0:
             checks.fail(f"{discordHelpers.utils.mentionUser(member)} hasn't been quoted before. Tell them to get started by using </quote:1174424282772807761>.")
             
         # failure message if failed
@@ -57,7 +57,7 @@ def command():
         # // main
         # get random quote from user
         chosenQuote = random.choice(userQuotes)
-        
+
         # reply with quote
         quoteView = ui.views.quote(chosenQuote)
 
