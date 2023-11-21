@@ -9,7 +9,6 @@ import json
 import sqlite3
 import discord
 import pathlib
-import difflib
 
 from . import helpers
 from . import classes
@@ -35,6 +34,9 @@ class quotes:
     
     def __commit(self):
         return self.database.commit()
+    
+    def __searchReady(self, text: str):
+        return text.lower().replace(" ", "")
     
     def __quoteDataToQuote(self, data: list):
         return classes.quote(self, data[0], data[1], data[2], data[3], data[4], data[5], data[6], json.loads(data[7]), data[8])
@@ -87,16 +89,13 @@ class quotes:
         
         return [self.__quoteDataToQuote(data) for data in allData]
     
-    def getQuoteByContentSearch(self, query: str, cutoff: float|int = 0.6) -> classes.quote|None:
+    def getQuoteByContentSearch(self, query: str):
+        query = self.__searchReady(query)
         allQuotes = self.getAllQuotes()
         
-        quotesDict = {quote.getText() : quote for quote in allQuotes}
-        matches = difflib.get_close_matches(query, quotesDict.keys(), n = 3, cutoff = cutoff)
-        
-        if len(matches) <= 0:
-            return
-        
-        return quotesDict.get(matches[0])
+        for quote in allQuotes:
+            if self.__searchReady(quote.getText()).find(query):
+                return quote
         
     def saveQuote(self, creator: discord.User, user: discord.User, guild: discord.Guild, message: discord.Message, data: dict):
         cursor = self.__getCursor()
