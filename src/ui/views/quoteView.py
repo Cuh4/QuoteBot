@@ -95,6 +95,12 @@ class view(template):
             f"{discordHelpers.utils.formatTimestamp(self.quote.getTimestamp())}"
         ])
         
+        # disable button
+        self.reportButton.disabled = True
+
+        self.message.edit(
+            view = self
+        )
         
         # send report
         await reportChannel.send(
