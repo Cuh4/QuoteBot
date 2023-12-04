@@ -53,12 +53,12 @@ def command():
         # reply with quote
         quoteView = ui.views.quote(quote)
 
-        response = await interaction.response.send_message(
+        await interaction.response.send_message(
             embed = await ui.embeds.quote(quote),
             view = quoteView
         )
         
-        quoteView.setViewMessage(response)
+        quoteView.setViewMessage(await interaction.original_response())
 
 # // start command
 command()
