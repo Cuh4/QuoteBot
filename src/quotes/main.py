@@ -94,7 +94,9 @@ class quotes:
         allQuotes = self.getAllQuotes()
         
         for quote in allQuotes:
-            if self.__searchReady(quote.getText()).find(query):
+            text = self.__searchReady(quote.getText())
+
+            if text.find(query) != -1:
                 return quote
         
     def saveQuote(self, creator: discord.User, user: discord.User, guild: discord.Guild, message: discord.Message, data: dict):

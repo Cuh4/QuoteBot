@@ -31,7 +31,7 @@ def command():
     async def command(interaction: discord.Interaction, query: str):
         # // get vars
         # search for quote
-        quote = quotes.getQuoteByContentSearch(query, 0.7)
+        quote = quotes.getQuoteByContentSearch(query)
         
         # // checks
         # setup
