@@ -98,7 +98,7 @@ class view(template):
         # disable button
         self.reportButton.disabled = True
 
-        self.message.edit(
+        await self.message.edit(
             view = self
         )
         
